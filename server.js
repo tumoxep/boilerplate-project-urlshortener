@@ -53,7 +53,7 @@ app.route('/api/shorturl?/:short?').get(function(req, res) {
     }
     try {
       const url = new URL(req.body.url);
-      if (url.protocol !== "http:" || url.protocol !== "https:") {
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
         throw new Error('invalid url');
       }
     } catch (err) {
