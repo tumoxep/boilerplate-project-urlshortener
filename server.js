@@ -51,6 +51,12 @@ app.route('/api/shorturl?/:short?').get(function(req, res) {
       res.json({ error: JSON.stringify(err) });
       return;
     }
+    try {
+      new URL(req.body.url);
+    } catch (err) {
+      res.json({ error: 'invalid url' });
+      return;
+    }
     if (!doc) {
       const docCount = await Short.find().estimatedDocumentCount().exec();
       const short = new Short({ original_url: req.body.url, short_url: parseInt(docCount) + 1 });
