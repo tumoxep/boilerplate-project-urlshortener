@@ -52,7 +52,10 @@ app.route('/api/shorturl?/:short?').get(function(req, res) {
       return;
     }
     try {
-      new URL(req.body.url);
+      const url = new URL(req.body.url);
+      if (url.protocol !== "http:" || url.protocol !== "https:") {
+        throw new Error('invalid url');
+      }
     } catch (err) {
       res.json({ error: 'invalid url' });
       return;
